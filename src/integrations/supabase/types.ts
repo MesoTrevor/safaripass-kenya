@@ -14,16 +14,791 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      audit_logs: {
+        Row: {
+          action: string
+          actor_id: string | null
+          created_at: string
+          details: Json
+          entity_id: string | null
+          entity_type: string
+          id: string
+        }
+        Insert: {
+          action: string
+          actor_id?: string | null
+          created_at?: string
+          details?: Json
+          entity_id?: string | null
+          entity_type: string
+          id?: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string | null
+          created_at?: string
+          details?: Json
+          entity_id?: string | null
+          entity_type?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      fare_categories: {
+        Row: {
+          description: string | null
+          id: string
+          name: string
+          status: string
+        }
+        Insert: {
+          description?: string | null
+          id?: string
+          name: string
+          status?: string
+        }
+        Update: {
+          description?: string | null
+          id?: string
+          name?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      journey_credit_batches: {
+        Row: {
+          allocated_journeys: number
+          created_at: string
+          expires_at: string
+          id: string
+          remaining_journeys: number
+          rollover_expires_at: string | null
+          subscription_id: string
+          user_id: string
+        }
+        Insert: {
+          allocated_journeys: number
+          created_at?: string
+          expires_at: string
+          id?: string
+          remaining_journeys: number
+          rollover_expires_at?: string | null
+          subscription_id: string
+          user_id: string
+        }
+        Update: {
+          allocated_journeys?: number
+          created_at?: string
+          expires_at?: string
+          id?: string
+          remaining_journeys?: number
+          rollover_expires_at?: string | null
+          subscription_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "journey_credit_batches_subscription_id_fkey"
+            columns: ["subscription_id"]
+            isOneToOne: false
+            referencedRelation: "subscriptions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      journeys: {
+        Row: {
+          created_at: string
+          credit_batch_id: string | null
+          fare_kes: number | null
+          id: string
+          route_id: string | null
+          status: string
+          user_id: string
+          vehicle_id: string | null
+          verified_at: string | null
+        }
+        Insert: {
+          created_at?: string
+          credit_batch_id?: string | null
+          fare_kes?: number | null
+          id?: string
+          route_id?: string | null
+          status?: string
+          user_id: string
+          vehicle_id?: string | null
+          verified_at?: string | null
+        }
+        Update: {
+          created_at?: string
+          credit_batch_id?: string | null
+          fare_kes?: number | null
+          id?: string
+          route_id?: string | null
+          status?: string
+          user_id?: string
+          vehicle_id?: string | null
+          verified_at?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "journeys_credit_batch_id_fkey"
+            columns: ["credit_batch_id"]
+            isOneToOne: false
+            referencedRelation: "journey_credit_batches"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "journeys_route_id_fkey"
+            columns: ["route_id"]
+            isOneToOne: false
+            referencedRelation: "routes"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "journeys_vehicle_id_fkey"
+            columns: ["vehicle_id"]
+            isOneToOne: false
+            referencedRelation: "vehicles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      ledger_entries: {
+        Row: {
+          created_at: string
+          credit_kes: number
+          debit_kes: number
+          entry_type: string
+          id: string
+          user_id: string
+          wallet_transaction_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          credit_kes?: number
+          debit_kes?: number
+          entry_type: string
+          id?: string
+          user_id: string
+          wallet_transaction_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          credit_kes?: number
+          debit_kes?: number
+          entry_type?: string
+          id?: string
+          user_id?: string
+          wallet_transaction_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "ledger_entries_wallet_transaction_id_fkey"
+            columns: ["wallet_transaction_id"]
+            isOneToOne: false
+            referencedRelation: "wallet_transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      notifications: {
+        Row: {
+          body: string
+          category: string
+          created_at: string
+          id: string
+          read_at: string | null
+          title: string
+          user_id: string
+        }
+        Insert: {
+          body: string
+          category: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          title: string
+          user_id: string
+        }
+        Update: {
+          body?: string
+          category?: string
+          created_at?: string
+          id?: string
+          read_at?: string | null
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      operator_accounts: {
+        Row: {
+          created_at: string
+          display_name: string
+          id: string
+          owner_id: string
+          sacco_id: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          display_name: string
+          id?: string
+          owner_id: string
+          sacco_id?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          id?: string
+          owner_id?: string
+          sacco_id?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "operator_accounts_sacco_id_fkey"
+            columns: ["sacco_id"]
+            isOneToOne: false
+            referencedRelation: "sacco_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      operator_members: {
+        Row: {
+          created_at: string
+          display_name: string
+          id: string
+          member_role: Database["public"]["Enums"]["operator_member_role"]
+          operator_id: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name: string
+          id?: string
+          member_role: Database["public"]["Enums"]["operator_member_role"]
+          operator_id: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          id?: string
+          member_role?: Database["public"]["Enums"]["operator_member_role"]
+          operator_id?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "operator_members_operator_id_fkey"
+            columns: ["operator_id"]
+            isOneToOne: false
+            referencedRelation: "operator_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      operator_settlements: {
+        Row: {
+          amount_kes: number
+          created_at: string
+          currency: string
+          id: string
+          operator_id: string
+          payout_reference: string | null
+          period_end: string
+          period_start: string
+          status: string
+        }
+        Insert: {
+          amount_kes: number
+          created_at?: string
+          currency?: string
+          id?: string
+          operator_id: string
+          payout_reference?: string | null
+          period_end: string
+          period_start: string
+          status?: string
+        }
+        Update: {
+          amount_kes?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          operator_id?: string
+          payout_reference?: string | null
+          period_end?: string
+          period_start?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "operator_settlements_operator_id_fkey"
+            columns: ["operator_id"]
+            isOneToOne: false
+            referencedRelation: "operator_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payment_transactions: {
+        Row: {
+          amount_kes: number
+          created_at: string
+          id: string
+          provider: string
+          provider_reference: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          amount_kes: number
+          created_at?: string
+          id?: string
+          provider: string
+          provider_reference?: string | null
+          status: string
+          user_id: string
+        }
+        Update: {
+          amount_kes?: number
+          created_at?: string
+          id?: string
+          provider?: string
+          provider_reference?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          phone: string | null
+          phone_verified_at: string | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          phone?: string | null
+          phone_verified_at?: string | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          phone?: string | null
+          phone_verified_at?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      refunds: {
+        Row: {
+          amount_kes: number
+          created_at: string
+          id: string
+          payment_transaction_id: string | null
+          reason: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          amount_kes: number
+          created_at?: string
+          id?: string
+          payment_transaction_id?: string | null
+          reason?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          amount_kes?: number
+          created_at?: string
+          id?: string
+          payment_transaction_id?: string | null
+          reason?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "refunds_payment_transaction_id_fkey"
+            columns: ["payment_transaction_id"]
+            isOneToOne: false
+            referencedRelation: "payment_transactions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      route_stops: {
+        Row: {
+          id: string
+          name: string
+          route_id: string
+          sequence_number: number
+        }
+        Insert: {
+          id?: string
+          name: string
+          route_id: string
+          sequence_number: number
+        }
+        Update: {
+          id?: string
+          name?: string
+          route_id?: string
+          sequence_number?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "route_stops_route_id_fkey"
+            columns: ["route_id"]
+            isOneToOne: false
+            referencedRelation: "routes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      routes: {
+        Row: {
+          created_at: string
+          destination: string
+          id: string
+          origin: string
+          region: string
+          short_code: string
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          destination: string
+          id?: string
+          origin: string
+          region?: string
+          short_code: string
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          destination?: string
+          id?: string
+          origin?: string
+          region?: string
+          short_code?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      sacco_accounts: {
+        Row: {
+          created_at: string
+          display_name: string
+          id: string
+          registration_code: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          display_name: string
+          id?: string
+          registration_code?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string
+          id?: string
+          registration_code?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
+      subscription_plans: {
+        Row: {
+          created_at: string
+          fare_category_id: string | null
+          id: string
+          journey_count: number
+          name: string
+          price_kes: number | null
+          rollover_days: number
+          route_id: string | null
+          status: string
+          validity_days: number
+        }
+        Insert: {
+          created_at?: string
+          fare_category_id?: string | null
+          id?: string
+          journey_count: number
+          name: string
+          price_kes?: number | null
+          rollover_days?: number
+          route_id?: string | null
+          status?: string
+          validity_days: number
+        }
+        Update: {
+          created_at?: string
+          fare_category_id?: string | null
+          id?: string
+          journey_count?: number
+          name?: string
+          price_kes?: number | null
+          rollover_days?: number
+          route_id?: string | null
+          status?: string
+          validity_days?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscription_plans_fare_category_id_fkey"
+            columns: ["fare_category_id"]
+            isOneToOne: false
+            referencedRelation: "fare_categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscription_plans_route_id_fkey"
+            columns: ["route_id"]
+            isOneToOne: false
+            referencedRelation: "routes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      subscriptions: {
+        Row: {
+          created_at: string
+          expires_at: string | null
+          id: string
+          plan_id: string
+          starts_at: string | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          plan_id: string
+          starts_at?: string | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string | null
+          id?: string
+          plan_id?: string
+          starts_at?: string | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "subscription_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      support_tickets: {
+        Row: {
+          created_at: string
+          id: string
+          message: string
+          status: string
+          subject: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          message: string
+          status?: string
+          subject: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          message?: string
+          status?: string
+          subject?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
+      vehicles: {
+        Row: {
+          created_at: string
+          id: string
+          make_model: string | null
+          operator_id: string
+          registration_number: string
+          sacco_id: string | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          make_model?: string | null
+          operator_id: string
+          registration_number: string
+          sacco_id?: string | null
+          status?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          make_model?: string | null
+          operator_id?: string
+          registration_number?: string
+          sacco_id?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "vehicles_operator_id_fkey"
+            columns: ["operator_id"]
+            isOneToOne: false
+            referencedRelation: "operator_accounts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "vehicles_sacco_id_fkey"
+            columns: ["sacco_id"]
+            isOneToOne: false
+            referencedRelation: "sacco_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      wallet_accounts: {
+        Row: {
+          balance_kes: number
+          created_at: string
+          currency: string
+          id: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          balance_kes?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          balance_kes?: number
+          created_at?: string
+          currency?: string
+          id?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      wallet_transactions: {
+        Row: {
+          amount_kes: number
+          created_at: string
+          id: string
+          provider_reference: string | null
+          status: string
+          transaction_type: string
+          user_id: string
+          wallet_id: string
+        }
+        Insert: {
+          amount_kes: number
+          created_at?: string
+          id?: string
+          provider_reference?: string | null
+          status: string
+          transaction_type: string
+          user_id: string
+          wallet_id: string
+        }
+        Update: {
+          amount_kes?: number
+          created_at?: string
+          id?: string
+          provider_reference?: string | null
+          status?: string
+          transaction_type?: string
+          user_id?: string
+          wallet_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "wallet_transactions_wallet_id_fkey"
+            columns: ["wallet_id"]
+            isOneToOne: false
+            referencedRelation: "wallet_accounts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "passenger" | "operator" | "conductor" | "admin"
+      operator_member_role: "driver" | "conductor"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +925,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["passenger", "operator", "conductor", "admin"],
+      operator_member_role: ["driver", "conductor"],
+    },
   },
 } as const
