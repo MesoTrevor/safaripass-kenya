@@ -8,6 +8,13 @@
       "when": 1794529557453,
       "tag": "0000_safari_pass_secure_app_foundation",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1794701492694,
+      "tag": "0001_secure_admin_role_grants",
+      "breakpoints": true
     }
   ]
 }
