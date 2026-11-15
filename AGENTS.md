@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Safari Pass Platform Structure
+
+- Keep the `/` route as the public Safari Pass entry point; mount dedicated public `/auth` and `/demo` pages plus role-gated workspaces under the integration-managed `_authenticated` layout, because guests need public access while private rider and operator records stay behind the existing Cloud auth gate.
