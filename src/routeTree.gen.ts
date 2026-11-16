@@ -15,7 +15,9 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as JourneysRouteImport } from './routes/journeys'
 import { Route as PassesRouteImport } from './routes/passes'
+import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as SupportRouteImport } from './routes/support'
 import { Route as WalletRouteImport } from './routes/wallet'
 
 const IndexRoute = IndexRouteImport.update({
@@ -48,9 +50,19 @@ const PassesRoute = PassesRouteImport.update({
   path: '/passes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfileRoute = ProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
   id: '/reset-password',
   path: '/reset-password',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
   getParentRoute: () => rootRouteImport,
 } as any)
 const WalletRoute = WalletRouteImport.update({
@@ -66,7 +78,9 @@ export interface FileRoutesByFullPath {
   '/demo': typeof DemoRoute
   '/journeys': typeof JourneysRoute
   '/passes': typeof PassesRoute
+  '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/support': typeof SupportRoute
   '/wallet': typeof WalletRoute
 }
 export interface FileRoutesByTo {
@@ -76,7 +90,9 @@ export interface FileRoutesByTo {
   '/demo': typeof DemoRoute
   '/journeys': typeof JourneysRoute
   '/passes': typeof PassesRoute
+  '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/support': typeof SupportRoute
   '/wallet': typeof WalletRoute
 }
 export interface FileRoutesById {
@@ -87,7 +103,9 @@ export interface FileRoutesById {
   '/demo': typeof DemoRoute
   '/journeys': typeof JourneysRoute
   '/passes': typeof PassesRoute
+  '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/support': typeof SupportRoute
   '/wallet': typeof WalletRoute
 }
 export interface FileRouteTypes {
@@ -99,7 +117,9 @@ export interface FileRouteTypes {
     | '/demo'
     | '/journeys'
     | '/passes'
+    | '/profile'
     | '/reset-password'
+    | '/support'
     | '/wallet'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -109,7 +129,9 @@ export interface FileRouteTypes {
     | '/demo'
     | '/journeys'
     | '/passes'
+    | '/profile'
     | '/reset-password'
+    | '/support'
     | '/wallet'
   id:
     | '__root__'
@@ -119,7 +141,9 @@ export interface FileRouteTypes {
     | '/demo'
     | '/journeys'
     | '/passes'
+    | '/profile'
     | '/reset-password'
+    | '/support'
     | '/wallet'
   fileRoutesById: FileRoutesById
 }
@@ -130,7 +154,9 @@ export interface RootRouteChildren {
   DemoRoute: typeof DemoRoute
   JourneysRoute: typeof JourneysRoute
   PassesRoute: typeof PassesRoute
+  ProfileRoute: typeof ProfileRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  SupportRoute: typeof SupportRoute
   WalletRoute: typeof WalletRoute
 }
 
@@ -178,11 +204,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PassesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profile': {
+      id: '/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof ProfileRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/reset-password': {
       id: '/reset-password'
       path: '/reset-password'
       fullPath: '/reset-password'
       preLoaderRoute: typeof ResetPasswordRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/wallet': {
@@ -202,7 +242,9 @@ const rootRouteChildren: RootRouteChildren = {
   DemoRoute: DemoRoute,
   JourneysRoute: JourneysRoute,
   PassesRoute: PassesRoute,
+  ProfileRoute: ProfileRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  SupportRoute: SupportRoute,
   WalletRoute: WalletRoute,
 }
 export const routeTree = rootRouteImport
