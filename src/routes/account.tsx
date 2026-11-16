@@ -5,7 +5,7 @@ import { requireUser } from "@/lib/safari-pass-auth";
 import { EmptyState, MiniIcon, Notice, PageHeading, Progress, ProtectedFrame, StatusPill } from "@/components/safari-pass-ui";
 import { formatKes, remainingRatio } from "@/lib/safari-pass-demo";
 
-export const Route = createFileRoute("/_authenticated/account")({
+export const Route = createFileRoute("/account")({
   ssr: false,
   beforeLoad: () => requireUser(),
   loader: ({ context }) => loadPassengerOverview(context.sessionUser.id),
