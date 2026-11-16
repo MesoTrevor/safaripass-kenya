@@ -12,8 +12,11 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as ConductorRouteImport } from './routes/conductor'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as JourneysRouteImport } from './routes/journeys'
+import { Route as OperatorRouteImport } from './routes/operator'
+import { Route as OperatorApplyRouteImport } from './routes/operator-apply'
 import { Route as PassesRouteImport } from './routes/passes'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
@@ -35,6 +38,11 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConductorRoute = ConductorRouteImport.update({
+  id: '/conductor',
+  path: '/conductor',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DemoRoute = DemoRouteImport.update({
   id: '/demo',
   path: '/demo',
@@ -43,6 +51,16 @@ const DemoRoute = DemoRouteImport.update({
 const JourneysRoute = JourneysRouteImport.update({
   id: '/journeys',
   path: '/journeys',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OperatorRoute = OperatorRouteImport.update({
+  id: '/operator',
+  path: '/operator',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OperatorApplyRoute = OperatorApplyRouteImport.update({
+  id: '/operator-apply',
+  path: '/operator-apply',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PassesRoute = PassesRouteImport.update({
@@ -75,8 +93,11 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
   '/auth': typeof AuthRoute
+  '/conductor': typeof ConductorRoute
   '/demo': typeof DemoRoute
   '/journeys': typeof JourneysRoute
+  '/operator': typeof OperatorRoute
+  '/operator-apply': typeof OperatorApplyRoute
   '/passes': typeof PassesRoute
   '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -87,8 +108,11 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
   '/auth': typeof AuthRoute
+  '/conductor': typeof ConductorRoute
   '/demo': typeof DemoRoute
   '/journeys': typeof JourneysRoute
+  '/operator': typeof OperatorRoute
+  '/operator-apply': typeof OperatorApplyRoute
   '/passes': typeof PassesRoute
   '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -100,8 +124,11 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/account': typeof AccountRoute
   '/auth': typeof AuthRoute
+  '/conductor': typeof ConductorRoute
   '/demo': typeof DemoRoute
   '/journeys': typeof JourneysRoute
+  '/operator': typeof OperatorRoute
+  '/operator-apply': typeof OperatorApplyRoute
   '/passes': typeof PassesRoute
   '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
@@ -114,8 +141,11 @@ export interface FileRouteTypes {
     | '/'
     | '/account'
     | '/auth'
+    | '/conductor'
     | '/demo'
     | '/journeys'
+    | '/operator'
+    | '/operator-apply'
     | '/passes'
     | '/profile'
     | '/reset-password'
@@ -126,8 +156,11 @@ export interface FileRouteTypes {
     | '/'
     | '/account'
     | '/auth'
+    | '/conductor'
     | '/demo'
     | '/journeys'
+    | '/operator'
+    | '/operator-apply'
     | '/passes'
     | '/profile'
     | '/reset-password'
@@ -138,8 +171,11 @@ export interface FileRouteTypes {
     | '/'
     | '/account'
     | '/auth'
+    | '/conductor'
     | '/demo'
     | '/journeys'
+    | '/operator'
+    | '/operator-apply'
     | '/passes'
     | '/profile'
     | '/reset-password'
@@ -151,8 +187,11 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AccountRoute: typeof AccountRoute
   AuthRoute: typeof AuthRoute
+  ConductorRoute: typeof ConductorRoute
   DemoRoute: typeof DemoRoute
   JourneysRoute: typeof JourneysRoute
+  OperatorRoute: typeof OperatorRoute
+  OperatorApplyRoute: typeof OperatorApplyRoute
   PassesRoute: typeof PassesRoute
   ProfileRoute: typeof ProfileRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
@@ -183,6 +222,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/conductor': {
+      id: '/conductor'
+      path: '/conductor'
+      fullPath: '/conductor'
+      preLoaderRoute: typeof ConductorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/demo': {
       id: '/demo'
       path: '/demo'
@@ -195,6 +241,20 @@ declare module '@tanstack/react-router' {
       path: '/journeys'
       fullPath: '/journeys'
       preLoaderRoute: typeof JourneysRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/operator': {
+      id: '/operator'
+      path: '/operator'
+      fullPath: '/operator'
+      preLoaderRoute: typeof OperatorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/operator-apply': {
+      id: '/operator-apply'
+      path: '/operator-apply'
+      fullPath: '/operator-apply'
+      preLoaderRoute: typeof OperatorApplyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/passes': {
@@ -239,8 +299,11 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AccountRoute: AccountRoute,
   AuthRoute: AuthRoute,
+  ConductorRoute: ConductorRoute,
   DemoRoute: DemoRoute,
   JourneysRoute: JourneysRoute,
+  OperatorRoute: OperatorRoute,
+  OperatorApplyRoute: OperatorApplyRoute,
   PassesRoute: PassesRoute,
   ProfileRoute: ProfileRoute,
   ResetPasswordRoute: ResetPasswordRoute,

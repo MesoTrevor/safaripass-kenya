@@ -795,8 +795,44 @@ export type Database = {
         }
         Returns: undefined
       }
+      admin_create_route: {
+        Args: {
+          _destination: string
+          _origin: string
+          _region?: string
+          _short_code: string
+        }
+        Returns: string
+      }
+      admin_create_subscription_plan: {
+        Args: {
+          _journey_count: number
+          _name: string
+          _price_kes: number
+          _rollover_days?: number
+          _route_id?: string
+          _validity_days: number
+        }
+        Returns: string
+      }
       admin_review_operator: {
         Args: { _operator_id: string; _status: string }
+        Returns: undefined
+      }
+      admin_review_support_ticket: {
+        Args: { _status: string; _ticket_id: string }
+        Returns: undefined
+      }
+      admin_review_vehicle: {
+        Args: { _status: string; _vehicle_id: string }
+        Returns: undefined
+      }
+      admin_set_plan_status: {
+        Args: { _plan_id: string; _status: string }
+        Returns: undefined
+      }
+      admin_set_route_status: {
+        Args: { _route_id: string; _status: string }
         Returns: undefined
       }
       has_role: {
