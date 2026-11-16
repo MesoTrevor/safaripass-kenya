@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { FormEvent } from "react";
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { ArrowLeft, BusFront, LockKeyhole } from "lucide-react";
 import { toast } from "sonner";
@@ -36,7 +37,7 @@ function ResetPasswordPage() {
     }
   };
   void checkRecovery();
-  const submit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!recovery) { toast.error("Open the password reset link from your email first."); return; }
     if (password !== confirm) { toast.error("The passwords don’t match."); return; }
