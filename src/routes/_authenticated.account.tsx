@@ -6,7 +6,7 @@ import { EmptyState, MiniIcon, Notice, PageHeading, Progress, ProtectedFrame, St
 import { formatKes, remainingRatio } from "@/lib/safari-pass-demo";
 import { Link } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/account")({
+export const Route = createFileRoute("/_authenticated/account")({
   ssr: false,
   beforeLoad: () => requireUser(),
   loader: ({ context }) => loadPassengerOverview(context.sessionUser.id),

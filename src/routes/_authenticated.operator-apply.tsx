@@ -7,7 +7,7 @@ import { Wordmark } from "@/components/safari-pass-ui";
 import { requireUser } from "@/lib/safari-pass-auth";
 import { requestOperatorAccount } from "@/lib/account-data";
 
-export const Route = createFileRoute("/operator-apply")({ ssr: false, beforeLoad: () => requireUser(), head: () => ({ meta: [{ title: "Operator application | Safari Pass" }, { name: "description", content: "Request a Safari Pass operator account. Operator access is enabled only after verification." }, { property: "og:title", content: "Operator application | Safari Pass" }, { property: "og:description", content: "Request a Safari Pass operator account. Operator access is enabled only after verification." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), component: OperatorApplyPage });
+export const Route = createFileRoute("/_authenticated/operator-apply")({ ssr: false, beforeLoad: () => requireUser(), head: () => ({ meta: [{ title: "Operator application | Safari Pass" }, { name: "description", content: "Request a Safari Pass operator account. Operator access is enabled only after verification." }, { property: "og:title", content: "Operator application | Safari Pass" }, { property: "og:description", content: "Request a Safari Pass operator account. Operator access is enabled only after verification." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), component: OperatorApplyPage });
 function OperatorApplyPage() {
   const { sessionUser } = Route.useRouteContext(); const navigate = useNavigate();
   const [name, setName] = useState(""); const [submitting, setSubmitting] = useState(false); const [submitted, setSubmitted] = useState(false);

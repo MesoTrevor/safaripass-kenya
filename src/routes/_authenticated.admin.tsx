@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { formatKes } from "@/lib/safari-pass-demo";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export const Route = createFileRoute("/admin")({ ssr: false, beforeLoad: () => requireAppRole(["admin"]), loader: async ({ context }) => {
+export const Route = createFileRoute("/_authenticated/admin")({ ssr: false, beforeLoad: () => requireAppRole(["admin"]), loader: async ({ context }) => {
   const [data, vehicles, audit, users] = await Promise.all([loadAdminWorkspace(), loadOperatorVehicles(), loadAdminAuditLog(), loadAdminUsers()]);
   return { ...data, vehicles, audit, users, adminUser: context.sessionUser };
 }, head: () => ({ meta: [{ title: "Administration | Safari Pass" }, { name: "description", content: "Review Safari Pass operator applications, vehicles, routes, plans, support and audit activity." }, { property: "og:title", content: "Administration | Safari Pass" }, { property: "og:description", content: "Review Safari Pass operator applications, vehicles, routes, plans, support and audit activity." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), errorComponent: ({ error, reset }) => <div role="alert">{error.message} <button onClick={reset}>Retry</button></div>, component: AdminPage });
