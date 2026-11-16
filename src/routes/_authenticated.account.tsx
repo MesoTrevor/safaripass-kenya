@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, CreditCard, Navigation, ShieldCheck, Wallet } from "lucide-react";
+import { ArrowRight, Navigation, ShieldCheck } from "lucide-react";
 import { loadPassengerOverview } from "@/lib/account-data";
 import { requireUser } from "@/lib/safari-pass-auth";
 import { EmptyState, MiniIcon, Notice, PageHeading, Progress, ProtectedFrame, StatusPill } from "@/components/safari-pass-ui";
@@ -10,7 +10,7 @@ export const Route = createFileRoute("/_authenticated/account")({
   beforeLoad: () => requireUser(),
   loader: ({ context }) => loadPassengerOverview(context.sessionUser.id),
   head: () => ({ meta: [{ title: "My commute | Safari Pass" }, { name: "description", content: "Your private Safari Pass commuter dashboard." }, { property: "og:title", content: "My commute | Safari Pass" }, { property: "og:description", content: "Your private Safari Pass commuter dashboard." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }),
-  errorComponent: ({ error, reset }) => <div role="alert" className="mx-auto max-w-xl rounded-xl border border-border bg-card p-6 text-sm">{error.message}<button onClick={reset} className="ml-3 font-semibold text-primary">Try again</button></div>,
+  errorComponent: ({ error, reset }) => <div role="alert" className="mx-auto max-w-xl rounded-xl border border-border bg-card p-6 text-sm">{(error instanceof Error ? error.message : "Safari Pass could not load this page.")}<button onClick={reset} className="ml-3 font-semibold text-primary">Try again</button></div>,
   component: AccountPage,
 });
 

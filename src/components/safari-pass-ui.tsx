@@ -43,7 +43,7 @@ export function SiteHeader({ active = "", sessionEmail }: { active?: string; ses
           <Link to="/demo" className={`text-[13px] font-medium hover:text-[#167A52] ${active === "Demo" ? "text-[#167A52]" : "text-[#596660]"}`}>Passenger demo</Link>
         </nav>
         <div className="hidden items-center gap-5 md:flex">
-          {sessionEmail ? <Link to="/_authenticated/account" className="max-w-[160px] truncate text-[12px] text-[#596660]">{sessionEmail}</Link> : <Link to="/auth" className="text-[13px] font-semibold text-[#253633]">Sign in</Link>}
+          {sessionEmail ? <Link to="/account" className="max-w-[160px] truncate text-[12px] text-[#596660]">{sessionEmail}</Link> : <Link to="/auth" className="text-[13px] font-semibold text-[#253633]">Sign in</Link>}
           <Button asChild className="h-10 rounded-xl bg-[#167A52] px-5 text-[13px] font-semibold text-white shadow-none hover:bg-[#116846]"><Link to="/demo">Explore Safari Pass <ArrowRight size={15} /></Link></Button>
         </div>
         <Button onClick={() => setOpen(!open)} variant="ghost" size="icon" className="md:hidden" aria-label={open ? "Close navigation" : "Open navigation"}>{open ? <X size={20} /> : <Menu size={20} />}</Button>
@@ -64,7 +64,7 @@ export function Footer() {
     <div className="mx-auto grid max-w-[1320px] gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
       <div><Wordmark light /><p className="mt-4 max-w-[300px] text-sm leading-6 text-white/65">Everyday travel, moving forward. Built for the Nairobi metropolitan commute.</p></div>
       <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#DAF16B]">Explore</p><div className="mt-4 grid gap-3 text-sm text-white/75"><a href="/#routes">Pilot routes</a><Link to="/demo">Passenger preview</Link><a href="/#operators">For operators</a></div></div>
-      <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#DAF16B]">Help & safety</p><div className="mt-4 grid gap-3 text-sm text-white/75"><Link to="/auth">Passenger account</Link><Link to="/_authenticated/support">Get help</Link><span>Payments are not yet enabled</span></div></div>
+      <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#DAF16B]">Help & safety</p><div className="mt-4 grid gap-3 text-sm text-white/75"><Link to="/auth">Passenger account</Link><Link to="/support">Get help</Link><span>Payments are not yet enabled</span></div></div>
     </div>
     <div className="mx-auto mt-10 flex max-w-[1320px] flex-col gap-3 border-t border-white/15 pt-5 text-[11px] text-white/50 sm:flex-row sm:items-center sm:justify-between"><span>© 2026 Safari Pass · Nairobi, Kenya</span><span>Sample figures are clearly labelled; live payments and journeys are not enabled.</span></div>
   </footer>;
