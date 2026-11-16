@@ -18,7 +18,7 @@ import {
   Wallet,
   X,
 } from "lucide-react";
-import { useEffect, useState, type ReactNode } from "react";
+import { useEffect, useState, type FormEvent, type ReactNode } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -118,7 +118,7 @@ export function EmailPasswordForm() {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault(); setLoading(true); setNotice("");
     if (mode === "signup") {
       const { data, error } = await supabase.auth.signUp({ email: email.trim(), password, options: { emailRedirectTo: `${window.location.origin}/account`, data: { full_name: fullName.trim(), phone: phone.trim() } } });
@@ -153,6 +153,24 @@ export function SignOutButton() {
     setLoading(false);
   };
   return <Button variant="ghost" size="sm" disabled={loading} onClick={onSignOut} className="h-9 px-3 text-xs text-[#68746E] hover:text-[#142B2B]"><LogOut size={15} />{loading ? "Signing out…" : "Sign out"}</Button>;
+}
+
+export function ForgotPasswordForm({ onCancel }: { onCancel: () => void }) {
+  const [email, setEmail] = useState("");
+  const [notice, setNotice] = useState("");
+  const [loading, setLoading] = useState(false);
+  const submit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setLoading(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), { redirectTo: `${window.location.origin}/reset-password` });
+    if (error) toast.error(error.message);
+    else setNotice("If an account exists for that email, password reset instructions are on their way.");
+    setLoading(false);
+  };
+  return <div className="space-y-4">
+    {notice ? <p role="status" className="rounded-xl bg-[#E8F4EC] px-4 py-3 text-sm leading-6 text-[#167A52]">{notice}</p> : <form onSubmit={submit} className="grid gap-3"><label className="grid gap-1.5 text-xs font-semibold text-[#40514A]">Email address<input required type="email" autoComplete="email" value={email} onChange={(event) => setEmail(event.target.value)} className="h-11 rounded-xl border border-[#E0E5DE] bg-white px-3 text-sm font-normal outline-none focus:ring-2 focus:ring-[#167A52]/30" placeholder="you@example.com" /></label><Button disabled={loading} className="h-11 w-full rounded-xl bg-[#142B2B] text-sm font-semibold text-white shadow-none hover:bg-[#213C3A]">{loading ? "Sending…" : "Send reset instructions"}</Button></form>}
+    <button type="button" onClick={onCancel} className="w-full text-center text-xs font-semibold text-[#167A52]">Back to sign in</button>
+  </div>;
 }
 
 export function useCurrentUser() {
