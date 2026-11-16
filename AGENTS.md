@@ -31,4 +31,4 @@ use the editor.
 
 ## Safari Pass Platform Structure
 
-- Keep the `/` route as the public Safari Pass entry point; mount dedicated public `/auth` and `/demo` pages plus role-gated workspaces under the integration-managed `_authenticated` layout, because guests need public access while private rider and operator records stay behind the existing Cloud auth gate.
+- Keep `/` public, with dedicated `/auth` and `/demo` pages; put private workspaces at named top-level URLs with per-page client-only identity and role guards, because a pathless layout conflicts with `/` in TanStack routing.
