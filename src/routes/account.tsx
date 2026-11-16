@@ -4,6 +4,7 @@ import { loadPassengerOverview } from "@/lib/account-data";
 import { requireUser } from "@/lib/safari-pass-auth";
 import { EmptyState, MiniIcon, Notice, PageHeading, Progress, ProtectedFrame, StatusPill } from "@/components/safari-pass-ui";
 import { formatKes, remainingRatio } from "@/lib/safari-pass-demo";
+import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/account")({
   ssr: false,
@@ -17,7 +18,7 @@ export const Route = createFileRoute("/account")({
 function AccountPage() {
   const { sessionUser } = Route.useRouteContext();
   const { profile, wallet, passes, journeys, notifications } = Route.useLoaderData();
-  const name = profile?.full_name || sessionUser.user_metadata["full_name"] || sessionUser.email?.split("@")[0] || "Commuter";
+  const name = profile?.full_name || sessionUser.user_metadata["full_name"]?.toString() || sessionUser.email?.split("@")[0] || "Commuter";
   const remaining = passes.reduce((sum, batch) => sum + batch.remaining_journeys, 0);
   const allocated = passes.reduce((sum, batch) => sum + batch.allocated_journeys, 0);
   return <ProtectedFrame active="Overview" userEmail={sessionUser.email ?? "Safari Pass member"}>
