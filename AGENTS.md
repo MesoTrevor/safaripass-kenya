@@ -31,4 +31,4 @@ use the editor.
 
 ## Safari Pass Platform Structure
 
-- Keep `/` public, with dedicated `/auth` and `/demo` pages; put private workspaces at named top-level URLs with per-page client-only identity and role guards, because a pathless layout conflicts with `/` in TanStack routing.
+- Keep public information pages (`/`, `/routes`, `/plans`, `/wallet`, `/operators`) as the primary experience; keep `/auth` and `/demo` dedicated, and private workspaces at named top-level URLs with per-page client-only identity and role guards, because a pathless layout conflicts with `/` in TanStack routing.
