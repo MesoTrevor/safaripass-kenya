@@ -4,7 +4,6 @@ import { loadPassengerOverview } from "@/lib/account-data";
 import { requireUser } from "@/lib/safari-pass-auth";
 import { EmptyState, MiniIcon, Notice, PageHeading, Progress, ProtectedFrame, StatusPill } from "@/components/safari-pass-ui";
 import { formatKes, remainingRatio } from "@/lib/safari-pass-demo";
-import { Link } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_authenticated/account")({
   ssr: false,

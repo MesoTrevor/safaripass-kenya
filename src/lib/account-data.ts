@@ -161,7 +161,7 @@ export async function setRouteStatus(routeId: string, status: "draft" | "active"
 
 export async function createAdminPlan(values: { name: string; price_kes: number; journey_count: number; validity_days: number; rollover_days: number; route_id: string | null }) {
   const { data, error } = await supabase.rpc("admin_create_subscription_plan", {
-    _name: values.name.trim(), _price_kes: values.price_kes, _journey_count: values.journey_count, _validity_days: values.validity_days, _rollover_days: values.rollover_days, _route_id: values.route_id,
+    _name: values.name.trim(), _price_kes: values.price_kes, _journey_count: values.journey_count, _validity_days: values.validity_days, _rollover_days: values.rollover_days, _route_id: values.route_id ?? undefined,
   });
   if (error) throw new Error(error.message);
   return data;
