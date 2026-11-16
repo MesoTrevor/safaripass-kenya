@@ -15,6 +15,20 @@
       "when": 1794701492694,
       "tag": "0001_secure_admin_role_grants",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1794790800302,
+      "tag": "0002_operator_onboarding_and_review",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1794791621894,
+      "tag": "0003_audited_admin_operations",
+      "breakpoints": true
     }
   ]
 }
