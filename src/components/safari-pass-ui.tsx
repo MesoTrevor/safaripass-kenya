@@ -32,7 +32,7 @@ export function Wordmark({ light = false }: { light?: boolean }) {
   );
 }
 
-export function SiteHeader({ active = "", sessionEmail }: { active?: string; sessionEmail?: string | null }) {
+export function SiteHeader({ active = "", sessionEmail }: { active?: string; sessionEmail?: string | null | undefined }) {
   const [open, setOpen] = useState(false);
   return (
     <header className="relative z-30 bg-[#F5F6F2]">
