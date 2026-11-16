@@ -124,6 +124,60 @@ export async function assignRole(userId: string, role: "passenger" | "operator" 
   if (error) throw new Error(error.message);
 }
 
+export async function loadOperatorVehicles() {
+  const { data, error } = await supabase.from("vehicles").select("id,operator_id,registration_number,make_model,status,created_at").order("created_at", { ascending: false }).limit(100);
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+export async function loadAdminAuditLog() {
+  const { data, error } = await supabase.from("audit_logs").select("id,actor_id,action,entity_type,entity_id,details,created_at").order("created_at", { ascending: false }).limit(100);
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+export async function setVehicleStatus(vehicleId: string, status: "active" | "suspended") {
+  const { error } = await supabase.rpc("admin_review_vehicle", { _vehicle_id: vehicleId, _status: status });
+  if (error) throw new Error(error.message);
+}
+
+export async function setSupportStatus(ticketId: string, status: "in_progress" | "resolved" | "closed") {
+  const { error } = await supabase.rpc("admin_review_support_ticket", { _ticket_id: ticketId, _status: status });
+  if (error) throw new Error(error.message);
+}
+
+export async function createAdminRoute(values: { short_code: string; origin: string; destination: string; region: string }) {
+  const { data, error } = await supabase.rpc("admin_create_route", {
+    _short_code: values.short_code.trim(), _origin: values.origin.trim(), _destination: values.destination.trim(), _region: values.region.trim() || "Nairobi Metropolitan",
+  });
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+export async function setRouteStatus(routeId: string, status: "draft" | "active" | "inactive") {
+  const { error } = await supabase.rpc("admin_set_route_status", { _route_id: routeId, _status: status });
+  if (error) throw new Error(error.message);
+}
+
+export async function createAdminPlan(values: { name: string; price_kes: number; journey_count: number; validity_days: number; rollover_days: number; route_id: string | null }) {
+  const { data, error } = await supabase.rpc("admin_create_subscription_plan", {
+    _name: values.name.trim(), _price_kes: values.price_kes, _journey_count: values.journey_count, _validity_days: values.validity_days, _rollover_days: values.rollover_days, _route_id: values.route_id,
+  });
+  if (error) throw new Error(error.message);
+  return data;
+}
+
+export async function setPlanStatus(planId: string, status: "draft" | "active" | "inactive") {
+  const { error } = await supabase.rpc("admin_set_plan_status", { _plan_id: planId, _status: status });
+  if (error) throw new Error(error.message);
+}
+
+export async function loadAdminUsers() {
+  const { data, error } = await supabase.from("user_roles").select("user_id,role,created_at").order("created_at", { ascending: false }).limit(200);
+  if (error) throw new Error(error.message);
+  return data;
+}
+
 export function accountDataQueryError(error: unknown): string {
   return error instanceof Error ? error.message : "Safari Pass could not load this account.";
 }
