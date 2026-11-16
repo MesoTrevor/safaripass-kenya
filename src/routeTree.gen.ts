@@ -10,33 +10,28 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AccountRouteImport } from './routes/account'
-import { Route as AdminRouteImport } from './routes/admin'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as AuthRouteImport } from './routes/auth'
-import { Route as ConductorRouteImport } from './routes/conductor'
 import { Route as DemoRouteImport } from './routes/demo'
-import { Route as JourneysRouteImport } from './routes/journeys'
-import { Route as OperatorRouteImport } from './routes/operator'
-import { Route as OperatorApplyRouteImport } from './routes/operator-apply'
-import { Route as PassesRouteImport } from './routes/passes'
-import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
-import { Route as SupportRouteImport } from './routes/support'
-import { Route as WalletRouteImport } from './routes/wallet'
+import { Route as AuthenticatedAccountRouteImport } from './routes/_authenticated.account'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated.admin'
+import { Route as AuthenticatedConductorRouteImport } from './routes/_authenticated.conductor'
+import { Route as AuthenticatedJourneysRouteImport } from './routes/_authenticated.journeys'
+import { Route as AuthenticatedOperatorRouteImport } from './routes/_authenticated.operator'
+import { Route as AuthenticatedOperatorApplyRouteImport } from './routes/_authenticated.operator-apply'
+import { Route as AuthenticatedPassesRouteImport } from './routes/_authenticated.passes'
+import { Route as AuthenticatedProfileRouteImport } from './routes/_authenticated.profile'
+import { Route as AuthenticatedSupportRouteImport } from './routes/_authenticated.support'
+import { Route as AuthenticatedWalletRouteImport } from './routes/_authenticated.wallet'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AccountRoute = AccountRouteImport.update({
-  id: '/account',
-  path: '/account',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
-  path: '/admin',
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -44,39 +39,9 @@ const AuthRoute = AuthRouteImport.update({
   path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ConductorRoute = ConductorRouteImport.update({
-  id: '/conductor',
-  path: '/conductor',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const DemoRoute = DemoRouteImport.update({
   id: '/demo',
   path: '/demo',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const JourneysRoute = JourneysRouteImport.update({
-  id: '/journeys',
-  path: '/journeys',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OperatorRoute = OperatorRouteImport.update({
-  id: '/operator',
-  path: '/operator',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OperatorApplyRoute = OperatorApplyRouteImport.update({
-  id: '/operator-apply',
-  path: '/operator-apply',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const PassesRoute = PassesRouteImport.update({
-  id: '/passes',
-  path: '/passes',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ProfileRoute = ProfileRouteImport.update({
-  id: '/profile',
-  path: '/profile',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ResetPasswordRoute = ResetPasswordRouteImport.update({
@@ -84,132 +49,166 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SupportRoute = SupportRouteImport.update({
+const AuthenticatedAccountRoute = AuthenticatedAccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedConductorRoute = AuthenticatedConductorRouteImport.update({
+  id: '/conductor',
+  path: '/conductor',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedJourneysRoute = AuthenticatedJourneysRouteImport.update({
+  id: '/journeys',
+  path: '/journeys',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedOperatorRoute = AuthenticatedOperatorRouteImport.update({
+  id: '/operator',
+  path: '/operator',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedOperatorApplyRoute =
+  AuthenticatedOperatorApplyRouteImport.update({
+    id: '/operator-apply',
+    path: '/operator-apply',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedPassesRoute = AuthenticatedPassesRouteImport.update({
+  id: '/passes',
+  path: '/passes',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedProfileRoute = AuthenticatedProfileRouteImport.update({
+  id: '/profile',
+  path: '/profile',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
+const AuthenticatedSupportRoute = AuthenticatedSupportRouteImport.update({
   id: '/support',
   path: '/support',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const WalletRoute = WalletRouteImport.update({
+const AuthenticatedWalletRoute = AuthenticatedWalletRouteImport.update({
   id: '/wallet',
   path: '/wallet',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/account': typeof AccountRoute
-  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
-  '/conductor': typeof ConductorRoute
   '/demo': typeof DemoRoute
-  '/journeys': typeof JourneysRoute
-  '/operator': typeof OperatorRoute
-  '/operator-apply': typeof OperatorApplyRoute
-  '/passes': typeof PassesRoute
-  '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/support': typeof SupportRoute
-  '/wallet': typeof WalletRoute
+  '/account': typeof AuthenticatedAccountRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/conductor': typeof AuthenticatedConductorRoute
+  '/journeys': typeof AuthenticatedJourneysRoute
+  '/operator': typeof AuthenticatedOperatorRoute
+  '/operator-apply': typeof AuthenticatedOperatorApplyRoute
+  '/passes': typeof AuthenticatedPassesRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/support': typeof AuthenticatedSupportRoute
+  '/wallet': typeof AuthenticatedWalletRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/account': typeof AccountRoute
-  '/admin': typeof AdminRoute
   '/auth': typeof AuthRoute
-  '/conductor': typeof ConductorRoute
   '/demo': typeof DemoRoute
-  '/journeys': typeof JourneysRoute
-  '/operator': typeof OperatorRoute
-  '/operator-apply': typeof OperatorApplyRoute
-  '/passes': typeof PassesRoute
-  '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/support': typeof SupportRoute
-  '/wallet': typeof WalletRoute
+  '/account': typeof AuthenticatedAccountRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/conductor': typeof AuthenticatedConductorRoute
+  '/journeys': typeof AuthenticatedJourneysRoute
+  '/operator': typeof AuthenticatedOperatorRoute
+  '/operator-apply': typeof AuthenticatedOperatorApplyRoute
+  '/passes': typeof AuthenticatedPassesRoute
+  '/profile': typeof AuthenticatedProfileRoute
+  '/support': typeof AuthenticatedSupportRoute
+  '/wallet': typeof AuthenticatedWalletRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/account': typeof AccountRoute
-  '/admin': typeof AdminRoute
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/auth': typeof AuthRoute
-  '/conductor': typeof ConductorRoute
   '/demo': typeof DemoRoute
-  '/journeys': typeof JourneysRoute
-  '/operator': typeof OperatorRoute
-  '/operator-apply': typeof OperatorApplyRoute
-  '/passes': typeof PassesRoute
-  '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
-  '/support': typeof SupportRoute
-  '/wallet': typeof WalletRoute
+  '/_authenticated/account': typeof AuthenticatedAccountRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/conductor': typeof AuthenticatedConductorRoute
+  '/_authenticated/journeys': typeof AuthenticatedJourneysRoute
+  '/_authenticated/operator': typeof AuthenticatedOperatorRoute
+  '/_authenticated/operator-apply': typeof AuthenticatedOperatorApplyRoute
+  '/_authenticated/passes': typeof AuthenticatedPassesRoute
+  '/_authenticated/profile': typeof AuthenticatedProfileRoute
+  '/_authenticated/support': typeof AuthenticatedSupportRoute
+  '/_authenticated/wallet': typeof AuthenticatedWalletRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
+    | '/demo'
+    | '/reset-password'
     | '/account'
     | '/admin'
-    | '/auth'
     | '/conductor'
-    | '/demo'
     | '/journeys'
     | '/operator'
     | '/operator-apply'
     | '/passes'
     | '/profile'
-    | '/reset-password'
     | '/support'
     | '/wallet'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
+    | '/demo'
+    | '/reset-password'
     | '/account'
     | '/admin'
-    | '/auth'
     | '/conductor'
-    | '/demo'
     | '/journeys'
     | '/operator'
     | '/operator-apply'
     | '/passes'
     | '/profile'
-    | '/reset-password'
     | '/support'
     | '/wallet'
   id:
     | '__root__'
     | '/'
-    | '/account'
-    | '/admin'
+    | '/_authenticated'
     | '/auth'
-    | '/conductor'
     | '/demo'
-    | '/journeys'
-    | '/operator'
-    | '/operator-apply'
-    | '/passes'
-    | '/profile'
     | '/reset-password'
-    | '/support'
-    | '/wallet'
+    | '/_authenticated/account'
+    | '/_authenticated/admin'
+    | '/_authenticated/conductor'
+    | '/_authenticated/journeys'
+    | '/_authenticated/operator'
+    | '/_authenticated/operator-apply'
+    | '/_authenticated/passes'
+    | '/_authenticated/profile'
+    | '/_authenticated/support'
+    | '/_authenticated/wallet'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  AccountRoute: typeof AccountRoute
-  AdminRoute: typeof AdminRoute
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
-  ConductorRoute: typeof ConductorRoute
   DemoRoute: typeof DemoRoute
-  JourneysRoute: typeof JourneysRoute
-  OperatorRoute: typeof OperatorRoute
-  OperatorApplyRoute: typeof OperatorApplyRoute
-  PassesRoute: typeof PassesRoute
-  ProfileRoute: typeof ProfileRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
-  SupportRoute: typeof SupportRoute
-  WalletRoute: typeof WalletRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -221,18 +220,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/account': {
-      id: '/account'
-      path: '/account'
-      fullPath: '/account'
-      preLoaderRoute: typeof AccountRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/admin': {
-      id: '/admin'
-      path: '/admin'
-      fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -242,53 +234,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/conductor': {
-      id: '/conductor'
-      path: '/conductor'
-      fullPath: '/conductor'
-      preLoaderRoute: typeof ConductorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/demo': {
       id: '/demo'
       path: '/demo'
       fullPath: '/demo'
       preLoaderRoute: typeof DemoRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/journeys': {
-      id: '/journeys'
-      path: '/journeys'
-      fullPath: '/journeys'
-      preLoaderRoute: typeof JourneysRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/operator': {
-      id: '/operator'
-      path: '/operator'
-      fullPath: '/operator'
-      preLoaderRoute: typeof OperatorRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/operator-apply': {
-      id: '/operator-apply'
-      path: '/operator-apply'
-      fullPath: '/operator-apply'
-      preLoaderRoute: typeof OperatorApplyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/passes': {
-      id: '/passes'
-      path: '/passes'
-      fullPath: '/passes'
-      preLoaderRoute: typeof PassesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/profile': {
-      id: '/profile'
-      path: '/profile'
-      fullPath: '/profile'
-      preLoaderRoute: typeof ProfileRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/reset-password': {
@@ -298,38 +248,114 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/support': {
-      id: '/support'
+    '/_authenticated/account': {
+      id: '/_authenticated/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AuthenticatedAccountRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/conductor': {
+      id: '/_authenticated/conductor'
+      path: '/conductor'
+      fullPath: '/conductor'
+      preLoaderRoute: typeof AuthenticatedConductorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/journeys': {
+      id: '/_authenticated/journeys'
+      path: '/journeys'
+      fullPath: '/journeys'
+      preLoaderRoute: typeof AuthenticatedJourneysRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/operator': {
+      id: '/_authenticated/operator'
+      path: '/operator'
+      fullPath: '/operator'
+      preLoaderRoute: typeof AuthenticatedOperatorRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/operator-apply': {
+      id: '/_authenticated/operator-apply'
+      path: '/operator-apply'
+      fullPath: '/operator-apply'
+      preLoaderRoute: typeof AuthenticatedOperatorApplyRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/passes': {
+      id: '/_authenticated/passes'
+      path: '/passes'
+      fullPath: '/passes'
+      preLoaderRoute: typeof AuthenticatedPassesRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/profile': {
+      id: '/_authenticated/profile'
+      path: '/profile'
+      fullPath: '/profile'
+      preLoaderRoute: typeof AuthenticatedProfileRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/support': {
+      id: '/_authenticated/support'
       path: '/support'
       fullPath: '/support'
-      preLoaderRoute: typeof SupportRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedSupportRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/wallet': {
-      id: '/wallet'
+    '/_authenticated/wallet': {
+      id: '/_authenticated/wallet'
       path: '/wallet'
       fullPath: '/wallet'
-      preLoaderRoute: typeof WalletRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof AuthenticatedWalletRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
   }
 }
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAccountRoute: typeof AuthenticatedAccountRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedConductorRoute: typeof AuthenticatedConductorRoute
+  AuthenticatedJourneysRoute: typeof AuthenticatedJourneysRoute
+  AuthenticatedOperatorRoute: typeof AuthenticatedOperatorRoute
+  AuthenticatedOperatorApplyRoute: typeof AuthenticatedOperatorApplyRoute
+  AuthenticatedPassesRoute: typeof AuthenticatedPassesRoute
+  AuthenticatedProfileRoute: typeof AuthenticatedProfileRoute
+  AuthenticatedSupportRoute: typeof AuthenticatedSupportRoute
+  AuthenticatedWalletRoute: typeof AuthenticatedWalletRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAccountRoute: AuthenticatedAccountRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedConductorRoute: AuthenticatedConductorRoute,
+  AuthenticatedJourneysRoute: AuthenticatedJourneysRoute,
+  AuthenticatedOperatorRoute: AuthenticatedOperatorRoute,
+  AuthenticatedOperatorApplyRoute: AuthenticatedOperatorApplyRoute,
+  AuthenticatedPassesRoute: AuthenticatedPassesRoute,
+  AuthenticatedProfileRoute: AuthenticatedProfileRoute,
+  AuthenticatedSupportRoute: AuthenticatedSupportRoute,
+  AuthenticatedWalletRoute: AuthenticatedWalletRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  AccountRoute: AccountRoute,
-  AdminRoute: AdminRoute,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
-  ConductorRoute: ConductorRoute,
   DemoRoute: DemoRoute,
-  JourneysRoute: JourneysRoute,
-  OperatorRoute: OperatorRoute,
-  OperatorApplyRoute: OperatorApplyRoute,
-  PassesRoute: PassesRoute,
-  ProfileRoute: ProfileRoute,
   ResetPasswordRoute: ResetPasswordRoute,
-  SupportRoute: SupportRoute,
-  WalletRoute: WalletRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
