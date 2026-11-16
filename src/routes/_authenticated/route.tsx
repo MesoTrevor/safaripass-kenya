@@ -7,9 +7,9 @@ import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/_authenticated")({
   ssr: false,
-  beforeLoad: async ({ location }) => {
+  beforeLoad: async () => {
     const { data, error } = await (await import("@/integrations/supabase/client")).supabase.auth.getUser();
-    if (error || !data.user) throw redirect({ to: "/auth", search: { next: location.href } });
+    if (error || !data.user) throw redirect({ to: "/auth" });
     return { sessionUser: data.user };
   },
   component: AuthenticatedShell,
