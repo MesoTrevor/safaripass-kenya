@@ -34,26 +34,24 @@ export function Wordmark({ light = false }: { light?: boolean }) {
 
 export function SiteHeader({ active = "", sessionEmail }: { active?: string; sessionEmail?: string | null | undefined }) {
   const [open, setOpen] = useState(false);
+  const publicLinks = [["Routes", "/routes"], ["Plans", "/plans"], ["Wallet", "/wallet"], ["Operators", "/operators"]] as const;
   return (
     <header className="relative z-30 bg-[#F5F6F2]">
       <div className="mx-auto flex h-[76px] max-w-[1320px] items-center justify-between px-5 sm:px-8 lg:px-12">
         <Wordmark />
         <nav aria-label="Main navigation" className="hidden items-center gap-9 md:flex">
-          {[["Routes", "/#routes"], ["For operators", "/#operators"], ["About", "/#about"]].map(([label, to]) => <a key={label} href={to} className={`text-[13px] font-medium hover:text-[#167A52] ${active === label ? "text-[#167A52]" : "text-[#596660]"}`}>{label}</a>)}
-          <Link to="/demo" className={`text-[13px] font-medium hover:text-[#167A52] ${active === "Demo" ? "text-[#167A52]" : "text-[#596660]"}`}>Passenger demo</Link>
+          {publicLinks.map(([label, to]) => <Link key={label} to={to} className={`text-[13px] font-medium hover:text-[#167A52] ${active === label ? "text-[#167A52]" : "text-[#596660]"}`}>{label}</Link>)}
         </nav>
         <div className="hidden items-center gap-5 md:flex">
-          {sessionEmail ? <Link to="/account" className="max-w-[160px] truncate text-[12px] text-[#596660]">{sessionEmail}</Link> : <Link to="/auth" className="text-[13px] font-semibold text-[#253633]">Sign in</Link>}
-          <Button asChild className="h-10 rounded-xl bg-[#167A52] px-5 text-[13px] font-semibold text-white shadow-none hover:bg-[#116846]"><Link to="/demo">Explore Safari Pass <ArrowRight size={15} /></Link></Button>
+          {sessionEmail ? <Link to="/account" className="max-w-[160px] truncate text-[12px] text-[#596660]">{sessionEmail}</Link> : <Link to="/auth" className="text-[13px] font-semibold text-[#253633]">Passenger sign in</Link>}
+          <Button asChild variant="outline" className="h-10 rounded-xl border-[#CDD5CB] bg-white px-4 text-[12px] font-semibold text-[#253633] shadow-none hover:bg-[#F5F6F2]"><Link to="/demo">Passenger preview <ArrowRight size={14} /></Link></Button>
         </div>
         <Button onClick={() => setOpen(!open)} variant="ghost" size="icon" className="md:hidden" aria-label={open ? "Close navigation" : "Open navigation"}>{open ? <X size={20} /> : <Menu size={20} />}</Button>
       </div>
       {open && <nav aria-label="Mobile navigation" className="absolute left-0 right-0 top-[76px] border-t border-[#E5E9E3] bg-[#F5F6F2] p-5 shadow-lg md:hidden">
-        <a href="/#routes" onClick={() => setOpen(false)} className="block border-b border-[#E5E9E3] py-3 text-sm font-medium text-[#253633]">Routes</a>
-        <a href="/#operators" onClick={() => setOpen(false)} className="block border-b border-[#E5E9E3] py-3 text-sm font-medium text-[#253633]">For operators</a>
-        <a href="/#about" onClick={() => setOpen(false)} className="block border-b border-[#E5E9E3] py-3 text-sm font-medium text-[#253633]">About</a>
-        <Link to="/demo" onClick={() => setOpen(false)} className="block border-b border-[#E5E9E3] py-3 text-sm font-medium text-[#253633]">Passenger demo</Link>
-        <Link to="/auth" onClick={() => setOpen(false)} className="block py-3 text-sm font-medium text-[#253633]">Sign in</Link>
+        {publicLinks.map(([label, to]) => <Link key={label} to={to} onClick={() => setOpen(false)} className="block border-b border-[#E5E9E3] py-3 text-sm font-medium text-[#253633]">{label}</Link>)}
+        <Link to="/demo" onClick={() => setOpen(false)} className="block border-b border-[#E5E9E3] py-3 text-sm font-medium text-[#253633]">Passenger preview</Link>
+        <Link to="/auth" onClick={() => setOpen(false)} className="block py-3 text-sm font-medium text-[#253633]">Passenger sign in</Link>
       </nav>}
     </header>
   );
@@ -63,8 +61,8 @@ export function Footer() {
   return <footer className="bg-[#142B2B] px-5 py-12 text-white sm:px-8 lg:px-12">
     <div className="mx-auto grid max-w-[1320px] gap-10 sm:grid-cols-2 lg:grid-cols-[1.4fr_1fr_1fr]">
       <div><Wordmark light /><p className="mt-4 max-w-[300px] text-sm leading-6 text-white/65">Everyday travel, moving forward. Built for the Nairobi metropolitan commute.</p></div>
-      <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#DAF16B]">Explore</p><div className="mt-4 grid gap-3 text-sm text-white/75"><a href="/#routes">Pilot routes</a><Link to="/demo">Passenger preview</Link><a href="/#operators">For operators</a></div></div>
-      <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#DAF16B]">Help & safety</p><div className="mt-4 grid gap-3 text-sm text-white/75"><Link to="/auth">Passenger account</Link><Link to="/support">Get help</Link><span>Payments are not yet enabled</span></div></div>
+      <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#DAF16B]">Explore</p><div className="mt-4 grid gap-3 text-sm text-white/75"><Link to="/routes">Pilot routes</Link><Link to="/plans">Pass plans</Link><Link to="/wallet">Digital wallet</Link><Link to="/operators">For operators</Link></div></div>
+      <div><p className="text-xs font-semibold uppercase tracking-[0.12em] text-[#DAF16B]">Passenger & help</p><div className="mt-4 grid gap-3 text-sm text-white/75"><Link to="/demo">Passenger preview</Link><Link to="/auth">Passenger sign in</Link><Link to="/support">Get help</Link><span>Payments are not yet enabled</span></div></div>
     </div>
     <div className="mx-auto mt-10 flex max-w-[1320px] flex-col gap-3 border-t border-white/15 pt-5 text-[11px] text-white/50 sm:flex-row sm:items-center sm:justify-between"><span>© 2026 Safari Pass · Nairobi, Kenya</span><span>Sample figures are clearly labelled; live payments and journeys are not enabled.</span></div>
   </footer>;
