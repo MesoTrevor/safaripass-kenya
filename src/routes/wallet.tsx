@@ -3,7 +3,7 @@ import { ArrowRight, LockKeyhole, Smartphone, WalletCards } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Footer, SiteHeader } from "@/components/safari-pass-ui";
 
-export const Route = createFileRoute("/wallet-public")({
+export const Route = createFileRoute("/wallet")({
   head: () => ({ meta: [
     { title: "Digital wallet | Safari Pass" },
     { name: "description", content: "Learn about the planned Safari Pass commuter wallet and current payment setup status." },
