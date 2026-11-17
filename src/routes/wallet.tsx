@@ -1,20 +1,37 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowDownLeft, ArrowUpRight, LockKeyhole, Wallet } from "lucide-react";
-import { loadPassengerWallet } from "@/lib/account-data";
-import { requireUser } from "@/lib/safari-pass-auth";
-import { EmptyState, Notice, PageHeading, ProtectedFrame, StatusPill } from "@/components/safari-pass-ui";
+import { ArrowRight, LockKeyhole, Smartphone, WalletCards } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { formatKes } from "@/lib/safari-pass-demo";
+import { Footer, SiteHeader } from "@/components/safari-pass-ui";
 
-export const Route = createFileRoute("/wallet")({ ssr: false, beforeLoad: () => requireUser(), loader: ({ context }) => loadPassengerWallet(context.sessionUser.id), head: () => ({ meta: [{ title: "My wallet | Safari Pass" }, { name: "description", content: "Review your Safari Pass wallet balance and confirmed transaction history." }, { property: "og:title", content: "My wallet | Safari Pass" }, { property: "og:description", content: "Review your Safari Pass wallet balance and confirmed transaction history." }, { property: "og:type", content: "website" }, { name: "twitter:card", content: "summary_large_image" }] }), errorComponent: ({ error, reset }) => <div role="alert">{(error instanceof Error ? error.message : "Safari Pass could not load this page.")} <button onClick={reset}>Retry</button></div>, component: WalletPage });
-function WalletPage() {
-  const { sessionUser } = Route.useRouteContext();
-  const { wallet, activity, payments } = Route.useLoaderData();
-  return <ProtectedFrame active="Wallet" userEmail={sessionUser.email ?? "Safari Pass member"}><PageHeading eyebrow="YOUR WALLET" title="Your money, clearly." description="Only confirmed payments and ledger entries belong in your wallet history." action={<StatusPill tone="orange"><LockKeyhole size={11} />Payments not connected</StatusPill>} />
-    <Notice tone="sand">Wallet top-ups and withdrawals are disabled until a Kenyan provider is integrated, payment callbacks are verified, and settlement controls are tested. No simulated balance is shown.</Notice>
-    <div className="mt-5 grid gap-4 md:grid-cols-[.8fr_1.2fr]"><section className="rounded-2xl bg-safari-ink p-5 text-white"><div className="flex items-center justify-between"><p className="text-[10px] text-white/65">Available balance · KES</p><span className="flex h-9 w-9 items-center justify-center rounded-xl bg-safari-lime text-safari-ink"><Wallet size={18} /></span></div><p className="mt-4 text-[32px] font-semibold">{formatKes(wallet?.balance_kes ?? 0)}</p><p className="mt-1 text-[10px] text-white/55">{wallet ? `Wallet status: ${wallet.status}` : "Your wallet account is being set up."}</p><Button disabled className="mt-5 h-10 w-full rounded-xl bg-safari-quiet text-[11px] font-semibold text-white">Add money unavailable <LockKeyhole size={14} /></Button></section>
-      <section className="rounded-2xl border border-safari-line bg-white p-5"><div className="flex items-center justify-between"><div><h2 className="text-[13px] font-semibold text-safari-ink">Payments setup</h2><p className="mt-1 text-[10px] text-safari-muted">A verified provider is needed before payments go live.</p></div><StatusPill tone="orange">Not connected</StatusPill></div><div className="mt-4 grid gap-3">{["M-Pesa collection", "Card and bank payments", "Verified provider callbacks", "Operator settlement reconciliation"].map((item) => <div key={item} className="flex items-center justify-between border-t border-safari-line pt-3"><span className="text-[11px] text-safari-text">{item}</span><span className="text-[10px] font-semibold text-safari-orange">Setup needed</span></div>)}</div></section></div>
-    <section className="mt-6 overflow-hidden rounded-2xl border border-safari-line bg-white"><div className="flex items-center justify-between border-b border-safari-line px-5 py-4"><div><h2 className="text-[13px] font-semibold text-safari-ink">Wallet transactions</h2><p className="mt-1 text-[10px] text-safari-muted">Your confirmed account history</p></div><StatusPill tone="muted">{activity.length} entries</StatusPill></div>{activity.length ? <div className="divide-y divide-safari-line">{activity.map((entry) => <div key={entry.id} className="flex items-center justify-between gap-3 px-5 py-4"><div className="flex items-center gap-3"><span className="flex h-8 w-8 items-center justify-center rounded-lg bg-safari-canvas text-safari-muted">{entry.transaction_type === "deposit" || entry.transaction_type === "refund" ? <ArrowDownLeft size={15} /> : <ArrowUpRight size={15} />}</span><div><p className="text-[11px] font-semibold capitalize text-safari-text">{entry.transaction_type}</p><p className="mt-1 text-[9px] text-safari-muted">{new Date(entry.created_at).toLocaleString("en-KE", { dateStyle: "medium", timeStyle: "short" })} · {entry.status}</p>{entry.provider_reference && <p className="mt-1 text-[9px] text-safari-muted">Reference {entry.provider_reference}</p>}</div></div><span className="shrink-0 text-[11px] font-semibold text-safari-text">{formatKes(entry.amount_kes)}</span></div>)}</div> : <EmptyState icon="credit" title="No wallet activity yet" detail="Only transactions confirmed by an integrated provider will appear here." />}</section>
-    <section className="mt-6 overflow-hidden rounded-2xl border border-safari-line bg-white"><div className="border-b border-safari-line px-5 py-4"><h2 className="text-[13px] font-semibold text-safari-ink">Payment records</h2></div>{payments.length ? payments.map((payment) => <div key={payment.id} className="flex items-center justify-between border-b border-safari-line px-5 py-3 text-[10px] last:border-b-0"><span>{payment.provider} · {new Date(payment.created_at).toLocaleDateString("en-KE")}</span><span className="font-semibold">{formatKes(payment.amount_kes)} · {payment.status}</span></div>) : <EmptyState icon="credit" title="No payment records" detail="Provider-confirmed payment activity will appear here." />}</section>
-  </ProtectedFrame>;
+export const Route = createFileRoute("/wallet-public")({
+  head: () => ({ meta: [
+    { title: "Digital wallet | Safari Pass" },
+    { name: "description", content: "Learn about the planned Safari Pass commuter wallet and current payment setup status." },
+    { property: "og:title", content: "Digital wallet | Safari Pass" },
+    { property: "og:description", content: "Learn about the planned Safari Pass commuter wallet and current payment setup status." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
+  ] }),
+  component: WalletInfoPage,
+});
+
+function WalletInfoPage() {
+  return <main className="min-h-screen bg-safari-canvas text-safari-ink">
+    <SiteHeader active="Wallet" />
+    <section className="border-b border-safari-line bg-white px-5 py-16 sm:px-8 sm:py-20 lg:px-12"><div className="mx-auto max-w-[1120px]">
+      <p className="text-xs font-bold uppercase tracking-[0.14em] text-safari-green">A CLEARER WAY TO PAY</p>
+      <h1 className="mt-4 max-w-[740px] text-4xl font-semibold leading-tight sm:text-5xl">A commuter wallet, with trust built in.</h1>
+      <p className="mt-5 max-w-[680px] text-base leading-7 text-safari-muted">Safari Pass plans to bring payment records and travel passes into one clear experience. Real payments are not enabled yet.</p>
+    </div></section>
+    <section className="px-5 py-12 sm:px-8 sm:py-16 lg:px-12"><div className="mx-auto max-w-[1120px]">
+      <div className="grid gap-8 md:grid-cols-3">
+        <article className="border-t border-safari-line pt-5"><span className="flex h-10 w-10 items-center justify-center bg-safari-pale-green text-safari-green"><WalletCards size={19} /></span><h2 className="mt-4 text-lg font-semibold">One clear record</h2><p className="mt-2 text-sm leading-6 text-safari-muted">A planned view of confirmed wallet activity and pass details.</p></article>
+        <article className="border-t border-safari-line pt-5"><span className="flex h-10 w-10 items-center justify-center bg-safari-pale-green text-safari-green"><Smartphone size={19} /></span><h2 className="mt-4 text-lg font-semibold">Kenyan payments in mind</h2><p className="mt-2 text-sm leading-6 text-safari-muted">M-Pesa, card and bank options require provider setup and verification before launch.</p></article>
+        <article className="border-t border-safari-line pt-5"><span className="flex h-10 w-10 items-center justify-center bg-safari-pale-green text-safari-green"><LockKeyhole size={19} /></span><h2 className="mt-4 text-lg font-semibold">No pretend transactions</h2><p className="mt-2 text-sm leading-6 text-safari-muted">No deposits, top-ups, purchases or journey deductions are processed or shown as successful.</p></article>
+      </div>
+      <div className="mt-12 border-y border-safari-line py-6"><p className="text-sm font-semibold">Payment setup is not complete.</p><p className="mt-2 max-w-[720px] text-sm leading-6 text-safari-muted">Provider connections, verified payment confirmations and settlement checks must be in place before the wallet can accept or move money. Any preview is marked as a demonstration and is not a receipt or live balance.</p></div>
+      <div className="mt-8 flex flex-wrap items-center gap-4"><Button asChild className="h-11 rounded-md bg-safari-green px-5 text-sm font-semibold text-white shadow-none hover:bg-safari-green-dark"><a href="/demo">See the labelled preview <ArrowRight size={16} /></a></Button><a href="/plans" className="text-sm font-semibold text-safari-text underline underline-offset-4">Learn about passes</a></div>
+    </div></section>
+    <Footer />
+  </main>;
 }

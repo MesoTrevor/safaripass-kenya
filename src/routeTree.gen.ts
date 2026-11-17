@@ -16,13 +16,19 @@ import { Route as AuthRouteImport } from './routes/auth'
 import { Route as ConductorRouteImport } from './routes/conductor'
 import { Route as DemoRouteImport } from './routes/demo'
 import { Route as JourneysRouteImport } from './routes/journeys'
+import { Route as MyPassesRouteImport } from './routes/my-passes'
+import { Route as MyWalletRouteImport } from './routes/my-wallet'
 import { Route as OperatorRouteImport } from './routes/operator'
 import { Route as OperatorApplyRouteImport } from './routes/operator-apply'
+import { Route as OperatorsRouteImport } from './routes/operators'
 import { Route as PassesRouteImport } from './routes/passes'
+import { Route as PlansRouteImport } from './routes/plans'
 import { Route as ProfileRouteImport } from './routes/profile'
 import { Route as ResetPasswordRouteImport } from './routes/reset-password'
+import { Route as RoutesRouteImport } from './routes/routes'
 import { Route as SupportRouteImport } from './routes/support'
 import { Route as WalletRouteImport } from './routes/wallet'
+import { Route as WalletPublicRouteImport } from './routes/wallet-public'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -59,6 +65,16 @@ const JourneysRoute = JourneysRouteImport.update({
   path: '/journeys',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MyPassesRoute = MyPassesRouteImport.update({
+  id: '/my-passes',
+  path: '/my-passes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MyWalletRoute = MyWalletRouteImport.update({
+  id: '/my-wallet',
+  path: '/my-wallet',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const OperatorRoute = OperatorRouteImport.update({
   id: '/operator',
   path: '/operator',
@@ -69,9 +85,19 @@ const OperatorApplyRoute = OperatorApplyRouteImport.update({
   path: '/operator-apply',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OperatorsRoute = OperatorsRouteImport.update({
+  id: '/operators',
+  path: '/operators',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PassesRoute = PassesRouteImport.update({
   id: '/passes',
   path: '/passes',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PlansRoute = PlansRouteImport.update({
+  id: '/plans',
+  path: '/plans',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProfileRoute = ProfileRouteImport.update({
@@ -84,6 +110,11 @@ const ResetPasswordRoute = ResetPasswordRouteImport.update({
   path: '/reset-password',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RoutesRoute = RoutesRouteImport.update({
+  id: '/routes',
+  path: '/routes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SupportRoute = SupportRouteImport.update({
   id: '/support',
   path: '/support',
@@ -92,6 +123,11 @@ const SupportRoute = SupportRouteImport.update({
 const WalletRoute = WalletRouteImport.update({
   id: '/wallet',
   path: '/wallet',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WalletPublicRoute = WalletPublicRouteImport.update({
+  id: '/wallet-public',
+  path: '/wallet-public',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -103,13 +139,19 @@ export interface FileRoutesByFullPath {
   '/conductor': typeof ConductorRoute
   '/demo': typeof DemoRoute
   '/journeys': typeof JourneysRoute
+  '/my-passes': typeof MyPassesRoute
+  '/my-wallet': typeof MyWalletRoute
   '/operator': typeof OperatorRoute
   '/operator-apply': typeof OperatorApplyRoute
+  '/operators': typeof OperatorsRoute
   '/passes': typeof PassesRoute
+  '/plans': typeof PlansRoute
   '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/routes': typeof RoutesRoute
   '/support': typeof SupportRoute
   '/wallet': typeof WalletRoute
+  '/wallet-public': typeof WalletPublicRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -119,13 +161,19 @@ export interface FileRoutesByTo {
   '/conductor': typeof ConductorRoute
   '/demo': typeof DemoRoute
   '/journeys': typeof JourneysRoute
+  '/my-passes': typeof MyPassesRoute
+  '/my-wallet': typeof MyWalletRoute
   '/operator': typeof OperatorRoute
   '/operator-apply': typeof OperatorApplyRoute
+  '/operators': typeof OperatorsRoute
   '/passes': typeof PassesRoute
+  '/plans': typeof PlansRoute
   '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/routes': typeof RoutesRoute
   '/support': typeof SupportRoute
   '/wallet': typeof WalletRoute
+  '/wallet-public': typeof WalletPublicRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -136,13 +184,19 @@ export interface FileRoutesById {
   '/conductor': typeof ConductorRoute
   '/demo': typeof DemoRoute
   '/journeys': typeof JourneysRoute
+  '/my-passes': typeof MyPassesRoute
+  '/my-wallet': typeof MyWalletRoute
   '/operator': typeof OperatorRoute
   '/operator-apply': typeof OperatorApplyRoute
+  '/operators': typeof OperatorsRoute
   '/passes': typeof PassesRoute
+  '/plans': typeof PlansRoute
   '/profile': typeof ProfileRoute
   '/reset-password': typeof ResetPasswordRoute
+  '/routes': typeof RoutesRoute
   '/support': typeof SupportRoute
   '/wallet': typeof WalletRoute
+  '/wallet-public': typeof WalletPublicRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -154,13 +208,19 @@ export interface FileRouteTypes {
     | '/conductor'
     | '/demo'
     | '/journeys'
+    | '/my-passes'
+    | '/my-wallet'
     | '/operator'
     | '/operator-apply'
+    | '/operators'
     | '/passes'
+    | '/plans'
     | '/profile'
     | '/reset-password'
+    | '/routes'
     | '/support'
     | '/wallet'
+    | '/wallet-public'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -170,13 +230,19 @@ export interface FileRouteTypes {
     | '/conductor'
     | '/demo'
     | '/journeys'
+    | '/my-passes'
+    | '/my-wallet'
     | '/operator'
     | '/operator-apply'
+    | '/operators'
     | '/passes'
+    | '/plans'
     | '/profile'
     | '/reset-password'
+    | '/routes'
     | '/support'
     | '/wallet'
+    | '/wallet-public'
   id:
     | '__root__'
     | '/'
@@ -186,13 +252,19 @@ export interface FileRouteTypes {
     | '/conductor'
     | '/demo'
     | '/journeys'
+    | '/my-passes'
+    | '/my-wallet'
     | '/operator'
     | '/operator-apply'
+    | '/operators'
     | '/passes'
+    | '/plans'
     | '/profile'
     | '/reset-password'
+    | '/routes'
     | '/support'
     | '/wallet'
+    | '/wallet-public'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -203,13 +275,19 @@ export interface RootRouteChildren {
   ConductorRoute: typeof ConductorRoute
   DemoRoute: typeof DemoRoute
   JourneysRoute: typeof JourneysRoute
+  MyPassesRoute: typeof MyPassesRoute
+  MyWalletRoute: typeof MyWalletRoute
   OperatorRoute: typeof OperatorRoute
   OperatorApplyRoute: typeof OperatorApplyRoute
+  OperatorsRoute: typeof OperatorsRoute
   PassesRoute: typeof PassesRoute
+  PlansRoute: typeof PlansRoute
   ProfileRoute: typeof ProfileRoute
   ResetPasswordRoute: typeof ResetPasswordRoute
+  RoutesRoute: typeof RoutesRoute
   SupportRoute: typeof SupportRoute
   WalletRoute: typeof WalletRoute
+  WalletPublicRoute: typeof WalletPublicRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -263,6 +341,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof JourneysRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/my-passes': {
+      id: '/my-passes'
+      path: '/my-passes'
+      fullPath: '/my-passes'
+      preLoaderRoute: typeof MyPassesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/my-wallet': {
+      id: '/my-wallet'
+      path: '/my-wallet'
+      fullPath: '/my-wallet'
+      preLoaderRoute: typeof MyWalletRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/operator': {
       id: '/operator'
       path: '/operator'
@@ -277,11 +369,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof OperatorApplyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/operators': {
+      id: '/operators'
+      path: '/operators'
+      fullPath: '/operators'
+      preLoaderRoute: typeof OperatorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/passes': {
       id: '/passes'
       path: '/passes'
       fullPath: '/passes'
       preLoaderRoute: typeof PassesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/plans': {
+      id: '/plans'
+      path: '/plans'
+      fullPath: '/plans'
+      preLoaderRoute: typeof PlansRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/profile': {
@@ -298,6 +404,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ResetPasswordRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/routes': {
+      id: '/routes'
+      path: '/routes'
+      fullPath: '/routes'
+      preLoaderRoute: typeof RoutesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/support': {
       id: '/support'
       path: '/support'
@@ -312,6 +425,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WalletRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/wallet-public': {
+      id: '/wallet-public'
+      path: '/wallet-public'
+      fullPath: '/wallet-public'
+      preLoaderRoute: typeof WalletPublicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -323,13 +443,19 @@ const rootRouteChildren: RootRouteChildren = {
   ConductorRoute: ConductorRoute,
   DemoRoute: DemoRoute,
   JourneysRoute: JourneysRoute,
+  MyPassesRoute: MyPassesRoute,
+  MyWalletRoute: MyWalletRoute,
   OperatorRoute: OperatorRoute,
   OperatorApplyRoute: OperatorApplyRoute,
+  OperatorsRoute: OperatorsRoute,
   PassesRoute: PassesRoute,
+  PlansRoute: PlansRoute,
   ProfileRoute: ProfileRoute,
   ResetPasswordRoute: ResetPasswordRoute,
+  RoutesRoute: RoutesRoute,
   SupportRoute: SupportRoute,
   WalletRoute: WalletRoute,
+  WalletPublicRoute: WalletPublicRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
