@@ -1,5 +1,6 @@
 # Safari Pass roadmap
 
+- [ ] Finish and present the site-first Safari Pass public experience and verified preview.
 - [ ] Prioritize a public Safari Pass website with dedicated route, plan, wallet, and operator information pages; keep account tools secondary.
 - [ ] Maintain the passenger preview as an optional, clearly labelled demonstration.
 - [ ] Complete passenger sign-in/profile, wallet, subscriptions, trip history, and account views using the existing secured Cloud tables.
